@@ -3,9 +3,10 @@ Simple graph implementation
 """
 from util import Stack, Queue  # These may come in handy
 
-class Graph:
 
+class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
+
     def __init__(self):
         self.vertices = {}
 
@@ -13,33 +14,73 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        if v1 in self.vertices and v2 in self.vertices:
+            self.vertices[v1].add(v2)
+        else:
+            raise IndexError("That vertex does not exist")
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+
+        # create a plan to visit queue and starting vertex to it
+        plan_to_visit = Queue()
+        plan_to_visit.enqueue(starting_vertex)
+        # create a Set for visited verticies
+        visited_vertices = set()
+        # while the plan to visit queue is not Empty
+        while plan_to_visit.size() > 0:
+            current_vertex = plan_to_visit.dequeue()
+            # dequeue the first vertex on the queue
+            # if its not been visited
+            if current_vertex not in visited_vertices:
+                # print the vertex
+                print(current_vertex)
+                # mark it as visited (add to visited vertices)
+                visited_vertices.add(current_vertex)
+                # add all neighbors to the queue
+                for neighbor in self.get_neighbors(current_vertex):
+                    if neighbor not in visited_vertices:
+                        plan_to_visit.enqueue(neighbor)
 
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # create a plan to visit stack and starting vertex to it
+        plan_to_visit = Stack()
+        plan_to_visit.push(starting_vertex)
+        # create a Set for visited verticies
+        visited_vertices = set()
+        # while the plan to visit stack is not Empty
+        while plan_to_visit.size() > 0:
+            current_vertex = plan_to_visit.pop()
+            # pop the first vertex on the stack
+            # if its not been visited
+            if current_vertex not in visited_vertices:
+                # print the vertex
+                print(current_vertex)
+                # mark it as visited (add to visited vertices)
+                visited_vertices.add(current_vertex)
+                # add all neighbors to the stack
+                for neighbor in self.get_neighbors(current_vertex):
+                    if neighbor not in visited_vertices:
+                        plan_to_visit.push(neighbor)
 
     def dft_recursive(self, starting_vertex):
         """
@@ -56,6 +97,20 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
+        # craete a empty queue, and enqueue a PATH to the starting vertex
+        # queue.enqueue([starting_vertex])
+        # create a set for visited vertices
+        # while the queue is not empty
+            # dequeue the first PATH
+            # grab the last vertex in the path
+            # if it hasnt been visited
+                # check if its the target
+                    # Return the path
+                # mark it as visited
+                # Make new versions of the current path, with each neighbor added to them
+                    # Duplicate the path
+                    # add the neighbor
+                    # Add the new path to the queue
         pass  # TODO
 
     def dfs(self, starting_vertex, destination_vertex):
@@ -75,6 +130,7 @@ class Graph:
         This should be done using recursion.
         """
         pass  # TODO
+
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
