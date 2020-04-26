@@ -83,14 +83,26 @@ class Graph:
                     if neighbor not in visited_vertices:
                         plan_to_visit.push(neighbor)
 
-    def dft_recursive(self, starting_vertex):
+        print("****** dft_recursive ******")
+
+    def dft_recursive(self, starting_vertex, visited=None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
 
         This should be done using recursion.
         """
-        pass  # ToDo
+        # If visited isn't passed, instantiate an empty set
+        if visited is None:
+            visited = set()
+
+        # Check if not has been visited
+        # If not, mark it as visited and do recursive on each neighbor
+        if starting_vertex not in visited:
+            visited.add(starting_vertex)
+            print(starting_vertex)
+            for i in self.vertices[starting_vertex]:
+                self.dft_recursive(i, visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -161,7 +173,7 @@ class Graph:
                     # Add the new path to the queue
                     queue.push(new_path)
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -169,7 +181,7 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        pass
 
 
 if __name__ == '__main__':
